@@ -31,8 +31,8 @@ public abstract class NiceSpinnerBaseAdapter<T> extends BaseAdapter {
     private final PopUpTextAlignment horizontalAlignment;
     private final SpinnerTextFormatter spinnerTextFormatter;
 
-    private int textColor;
-    private int backgroundSelector;
+     int textColor;
+     int backgroundSelector;
 
     int selectedIndex;
 
@@ -74,7 +74,7 @@ public abstract class NiceSpinnerBaseAdapter<T> extends BaseAdapter {
         return convertView;
     }
 
-    private void setTextHorizontalAlignment(TextView textView) {
+    void setTextHorizontalAlignment(TextView textView) {
         switch (horizontalAlignment) {
             case START:
                 textView.setGravity(Gravity.START);

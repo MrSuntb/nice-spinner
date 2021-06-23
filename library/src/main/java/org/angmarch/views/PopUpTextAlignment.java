@@ -1,6 +1,6 @@
 package org.angmarch.views;
 
-enum PopUpTextAlignment {
+public enum PopUpTextAlignment {
     START(0),
     END(1),
     CENTER(2);

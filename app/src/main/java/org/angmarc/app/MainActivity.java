@@ -4,13 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
-import org.angmarch.views.SimpleSpinnerTextFormatter;
 import org.angmarch.views.SpinnerTextFormatter;
 
 import java.util.ArrayList;
@@ -64,13 +67,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Selected: " + person.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-        spinner.attachDataSource(people);
+        spinner.attachDataSource2(people);
     }
 
     private void setupDefault() {
         NiceSpinner spinner = findViewById(R.id.nice_spinner);
-        List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
-        spinner.attachDataSource(dataset);
+        List<String> dataset = new LinkedList<>(Arrays.asList("Sortir default",
+                "Oil dari tinggi ke rendah",
+                "Oil dari rendah ke tinggi",
+                "Jumlah pertukaran dari tinggi ke rendah",
+                "Jumlah pertukaran dari rendah ke tinggi"));
+        spinner.attachDataSource2(dataset);
         spinner.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {

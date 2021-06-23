@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static android.widget.ListPopupWindow.MATCH_PARENT;
 
 
 /*
@@ -142,22 +145,18 @@ public class NiceSpinner extends AppCompatTextView {
         int defaultPadding = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
 
         setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-        setPadding(resources.getDimensionPixelSize(R.dimen.three_grid_unit), defaultPadding, defaultPadding,
-                defaultPadding);
+        setPadding(resources.getDimensionPixelSize(R.dimen.three_grid_unit), defaultPadding, defaultPadding, defaultPadding);
         setClickable(true);
         backgroundSelector = typedArray.getResourceId(R.styleable.NiceSpinner_backgroundSelector, R.drawable.selector);
         setBackgroundResource(backgroundSelector);
         textColor = typedArray.getColor(R.styleable.NiceSpinner_textTint, getDefaultTextColor(context));
         setTextColor(textColor);
         popupWindow = new ListPopupWindow(context);
+        popupWindow.setWidth(MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         popupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // The selected item is not displayed within the list, so when the selected position is equal to
-                // the one of the currently selected item it gets shifted to the next item.
-                if (position >= selectedIndex && position < adapter.getCount()) {
-                    position++;
-                }
                 selectedIndex = position;
 
                 if (onSpinnerItemSelectedListener != null) {
@@ -354,6 +353,11 @@ public class NiceSpinner extends AppCompatTextView {
         this.adapter = new NiceSpinnerAdapterWrapper(getContext(), adapter, textColor, backgroundSelector,
                 spinnerTextFormatter, horizontalAlignment);
         setAdapterInternal(this.adapter);
+    }
+
+    public <T> void attachDataSource2(@NonNull List<T> list) {
+        adapter = new MySpinnerAdapter<>(getContext(), list, textColor, backgroundSelector, spinnerTextFormatter, horizontalAlignment);
+        setAdapterInternal(adapter);
     }
 
     public PopUpTextAlignment getPopUpTextAlignment() {

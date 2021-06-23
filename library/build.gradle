@@ -7,6 +7,7 @@ buildscript {
         mavenCentral()
         jcenter()
         google()
+        mavenLocal() // 使用本地仓库
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.1'
@@ -14,10 +15,10 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 30
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,3 +37,4 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'org.assertj:assertj-core:3.12.2'
 }
+apply from: './upload.gradle'
